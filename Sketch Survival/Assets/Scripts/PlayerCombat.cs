@@ -1,15 +1,48 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerCombat : MonoBehaviour
 {
+    [Header("Unarmed Settings")]
     [SerializeField] private int unarmedDamage = 5;
     [SerializeField] private float unarmedRange = 1f;
     [SerializeField] private float unarmedCooldown = 0.1f;
+
+    [Header("Unarmed Hand References")]
+    [SerializeField] private Transform leftHand;
+    [SerializeField] private Transform rightHand;
+
+    [Header("Unarmed Animation")]
+    [SerializeField] private float punchDistance = 0.2f;
+    [SerializeField] private float punchDuration = 0.06f;
+
+    [Header("Weapon Settings")]
     [SerializeField] private Transform weaponHolder;
     [SerializeField] private LayerMask attackableLayer;
 
     private Weapon equippedWeapon;
     private float nextAttackTime = 0f;
+
+    // Permet d'alterner : main gauche, puis main droite, puis gauche, etc.
+    private bool useLeftHand = true;
+
+    // On garde la position de repos des mains
+    private Vector3 leftHandStartLocalPosition;
+    private Vector3 rightHandStartLocalPosition;
+
+    private void Start()
+    {
+        // On sauvegarde la position locale de départ des mains
+        if (leftHand != null)
+        {
+            leftHandStartLocalPosition = leftHand.localPosition;
+        }
+
+        if (rightHand != null)
+        {
+            rightHandStartLocalPosition = rightHand.localPosition;
+        }
+    }
 
     public void EquipWeapon(Weapon newWeapon)
     {
@@ -63,10 +96,55 @@ public class PlayerCombat : MonoBehaviour
         }
         else
         {
-            Debug.Log("Le joueur attaque à mains nues");
+            StartCoroutine(DoUnarmedAttackAnimation());
         }
 
         DealDamageToClosestTarget(range, damage);
+    }
+
+    private IEnumerator DoUnarmedAttackAnimation()
+    {
+        // Sélection de la main qui attaque cette fois-ci
+        Transform attackingHand = useLeftHand ? leftHand : rightHand;
+
+        if (attackingHand == null)
+        {
+            yield break;
+        }
+
+        Vector3 startPos = useLeftHand ? leftHandStartLocalPosition : rightHandStartLocalPosition;
+
+        // Ici, je pars du principe que "avant" = vers la droite locale.
+        // Si ton perso regarde toujours à droite, ça ira.
+        // Sinon il faudra le lier à la direction du personnage.
+        Vector3 endPos = startPos + Vector3.right * punchDistance;
+
+        float time = 0f;
+
+        // Aller
+        while (time < punchDuration)
+        {
+            time += Time.deltaTime;
+            float t = time / punchDuration;
+            attackingHand.localPosition = Vector3.Lerp(startPos, endPos, t);
+            yield return null;
+        }
+
+        time = 0f;
+
+        // Retour
+        while (time < punchDuration)
+        {
+            time += Time.deltaTime;
+            float t = time / punchDuration;
+            attackingHand.localPosition = Vector3.Lerp(endPos, startPos, t);
+            yield return null;
+        }
+
+        attackingHand.localPosition = startPos;
+
+        // On alterne pour la prochaine attaque
+        useLeftHand = !useLeftHand;
     }
 
     private void DealDamageToClosestTarget(float range, int damage)

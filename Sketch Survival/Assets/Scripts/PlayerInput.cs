@@ -25,7 +25,7 @@ public class PlayerInput : MonoBehaviour
 
     private void HandleCombatInput()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonDown(0))
         {
             playerCombat.TryAttack();
         }

@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 216387ea6ffb843c994122fa0d1ffb7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BreakableCrate
-  maxHealth: 5
+  maxHealth: 10
   shrinkPerHit: 0.1
   minimumScale: 0.5
   possibleDrops: []

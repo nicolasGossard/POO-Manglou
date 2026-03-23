@@ -142,8 +142,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Knife
   maxDurability: 100
-  attackRange: 2
+  attackRange: 1.75
   damage: 20
   attackCooldown: 0.25
   currentDurability: 0
-  durabilityCostPerHit: 1
+  durabilityCostPerHit: 5
+  thrustDistance: 0.6
+  thrustDuration: 0.08

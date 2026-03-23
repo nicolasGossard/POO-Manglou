@@ -148,8 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 375eeb2b93c0b46bb9c6b746ac947514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Map
-  mapWidth: 50
-  mapHeight: 50
+  mapWidth: 45
+  mapHeight: 45
   cellSize: 8
   mapOrigin: {x: 0, y: 0}
   objectsToSpawn:
@@ -170,7 +170,7 @@ MonoBehaviour:
     onePerCell: 1
   - prefab: {fileID: 7696069552722116250, guid: a348dcfd0649b4483937a1631af40fa5, type: 3}
     objectName: Grass1
-    chanceSur: 5
+    chanceSur: 3
     randomOffsetInCell: 1
     onePerCell: 1
   - prefab: {fileID: 6309329749200907662, guid: 006be552b36d8467184be537a5a842bb, type: 3}
@@ -180,7 +180,17 @@ MonoBehaviour:
     onePerCell: 1
   - prefab: {fileID: 2979067986323226508, guid: 56af1c6c1daf24adcae59d0881b0608b, type: 3}
     objectName: Zombiee
-    chanceSur: 2
+    chanceSur: 5
+    randomOffsetInCell: 1
+    onePerCell: 1
+  - prefab: {fileID: 6200304446971195711, guid: e448bec260cc74ba588438b7145ccff3, type: 3}
+    objectName: Grass2
+    chanceSur: 3
+    randomOffsetInCell: 1
+    onePerCell: 1
+  - prefab: {fileID: 6085744766629255017, guid: 29e23fc90af874f7db91ef6708b5c7d3, type: 3}
+    objectName: Flower1
+    chanceSur: 3
     randomOffsetInCell: 1
     onePerCell: 1
   spawnedObjectsParent: {fileID: 0}
@@ -297,7 +307,6 @@ Transform:
   - {fileID: 1377141659}
   - {fileID: 815540945}
   - {fileID: 1914706051}
-  - {fileID: 1708768385}
   - {fileID: 2098621595}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -27.16}
@@ -315,7 +324,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCombat
   unarmedDamage: 5
   unarmedRange: 1
-  unarmedCooldown: 0.7
+  unarmedCooldown: 0.1
+  leftHand: {fileID: 1708768385}
+  rightHand: {fileID: 2098621595}
+  punchDistance: 0.2
+  punchDuration: 0.06
   weaponHolder: {fileID: 1377141659}
   attackableLayer:
     serializedVersion: 2
@@ -545,7 +558,8 @@ Transform:
   m_LocalPosition: {x: 0.727, y: 0.51, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1708768385}
   m_Father: {fileID: 794831764}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1506096416
@@ -653,11 +667,11 @@ Transform:
   m_GameObject: {fileID: 1708768384}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.499, y: 0.376, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalPosition: {x: -0.22800002, y: -0.13399997, z: 0}
+  m_LocalScale: {x: 0.29999995, y: 0.29999995, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 794831764}
+  m_Father: {fileID: 1377141659}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1708768386
 SpriteRenderer:
@@ -988,7 +1002,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.49900025, y: -0.376, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.29999995, y: 0.29999995, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 794831764}
